@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Dojo Survey Complete</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="display-4 text-primary my-4"><u>Submitted Info</u></h1>
+        <table class="table table-borderless">
+            <tbody>
+                <tr>
+                    <td>Name:</td>
+                    <td>{{ session['name'] }}</td>
+                </tr>
+                <tr>
+                    <td>Dojo Location:</td>
+                    <td>{{ session['location'] }}</td>
+                </tr>
+                <tr>
+                    <td>Favorite Language:</td>
+                    <td>{{ session['language'] }}</td>
+                </tr>
+                <tr>
+                    <td>Comment:</td>
+                    <td>{{ session['comments'] }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <form action="/reset" method="POST">
+            <button type="submit" value="Go Home" class="btn btn-success">Reset Survey</button>
+        </form>
+    </div>
+</body>
+</html>
