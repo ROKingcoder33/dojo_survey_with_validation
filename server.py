@@ -8,10 +8,12 @@ app.secret_key = os.urandom(24)
 def index():
     try:
         session['name']
+        session['location']
+        session['language']
         session['comments']
     except KeyError:
-        session['name'] = None
-        session['comments'] = None
+        session['name'] = ''
+        session['comments'] = ''
     return render_template('index.html')
 
 
@@ -23,16 +25,20 @@ def result():
 @app.route('/process', methods=['POST'])
 def successful():
     error = False
+    session['name'] = request.form['name']
+    session['location'] = request.form['location']
+    session['language'] = request.form['language']
+    session['comments'] = request.form['comments']
 
-    if len(request.form['name']) == 0:
+    if len(session['name']) == 0:
         flash('You name must enter a name')
         error = True
 
-    if len(request.form['comments']) == 0:
+    if len(session['comments']) == 0:
         flash('Please enter comments')
         error = True
 
-    if len(request.form['comments']) > 120:
+    if len(session['comments']) > 120:
         flash('Max characters of 120 is exceeded')
         error = True
 
@@ -40,10 +46,6 @@ def successful():
         return redirect('/')
 
     else:
-        session['name'] = request.form['name']
-        session['location'] = request.form['location']
-        session['language'] = request.form['language']
-        session['comments'] = request.form['comments']
         print('Name: ', session['name'])
         print('Location: ', session['location'])
         print('Language: ', session['language'])
